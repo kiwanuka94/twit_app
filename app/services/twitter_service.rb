@@ -32,8 +32,14 @@ class TwitterService
     response = req.run
 
     if response.success?
+      tweet_id_now = JSON.parse(response.body)['data']['id']
+      tweet_url_now = "https://twitter.com/twitter/status/#{tweet_id_now}"
+      message.update(tweet_id: tweet_id_now, tweet_url: tweet_url_now)
+
       puts "Credentials work! Tweet:"
       puts JSON.pretty_generate(JSON.parse(response.body))
+
+
     else
       puts "Credentials failed, please try generating again."
     end
